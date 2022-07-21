@@ -157,16 +157,7 @@ fun firstUniqChar(s: String): Char {
 
 
 
-fun buildTree(preorder: IntArray, inorder: IntArray): TreeNode? {
-    var treeNode = TreeNode(preorder[0])
-    var cur = TreeNode(preorder[0])
-
-
-    return treeNode
-}
-
-
 
 fun main() {
-    println("----")
+
 }
