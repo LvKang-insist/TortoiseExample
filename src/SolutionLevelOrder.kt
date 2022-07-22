@@ -214,21 +214,80 @@ fun query(root: TreeNode, rootList: MutableList<Int>, sum: Int) {
     }
 }
 
+/**
+ * 题：二叉树镜像
+ * 解：递归，每次交换左右结点即可
+ * */
+fun mirrorTree(root: TreeNode?): TreeNode? {
+    mirrorTree1(root)
+    return root
+}
+
+fun mirrorTree1(root: TreeNode?) {
+    if (root == null) return
+    var temp = root.left
+    root.left = root.right
+    root.right = temp
+
+    mirrorTree1(root.left)
+    mirrorTree1(root.right)
+}
+
+/**
+ * 题：叶子结点的路径之和
+ * 解：递归遍历，每次上一次的值 * 10 +之前的即可。
+ *    注意：如果是最后一个结点，直接返回计算结果即可
+ *
+ * */
+fun sumNumbers(root: TreeNode?): Int {
+    return querySumBers(root, 0)
+}
+
+fun querySumBers(node: TreeNode?, sum: Int): Int {
+    if (node == null) return 0
+    val temp = sum * 10 + node.`val`
+
+    if (node.left == null && node.right == null)
+        return temp
+    val left = querySumBers(node.left, temp)
+    val right = querySumBers(node.right, temp)
+    return left + right
+}
+
+
+/**
+ * 题：对称二叉树
+ * 解：从中间切开，然后递归左右两边进行对比
+ * */
+fun isSymmetric(root: TreeNode?): Boolean {
+    if (root == null) return true
+    return checkSymmetric(root.left,root.right)
+}
+
+fun checkSymmetric(left: TreeNode?, right: TreeNode?): Boolean {
+    if (left == null && right == null) return true
+    if (left == null || right == null) return false
+    if (left.`val` == right.`val`) {
+        return checkSymmetric(left.left, right.right) && checkSymmetric(left.right, right.left)
+    }
+    return false
+}
+
 
 fun main() {
     var tree1 = TreeNode(1)
     var tree2 = TreeNode(2)
     var tree3 = TreeNode(3)
     var tree4 = TreeNode(4)
-    var tree5 = TreeNode(3)
+//    var tree5 = TreeNode(3)
 
 
     tree1.left = tree2
     tree1.right = tree3
 
-    tree2.left = tree4
 
-    pathSum2(tree1, 7).forEach {
-        println(it.joinToString())
-    }
+    tree2.left = tree4
+//    tree2.left = tree4
+
+    println(sumNumbers(tree1))
 }
