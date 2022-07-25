@@ -1,4 +1,5 @@
 import java.util.*
+import kotlin.math.max
 
 /**
  * @name SolutionLevelOrder
@@ -273,6 +274,29 @@ fun checkSymmetric(left: TreeNode?, right: TreeNode?): Boolean {
     return false
 }
 
+/**
+ * 题：二叉树的最大深度
+ * 解1：递归遍历，按层级即对应者深度，保留最大深度即可。
+ * 解2：递归 DFS ，再递归到每一个层级退出的时候 +1，深度优先
+ * */
+fun maxDepth(root: TreeNode?): Int {
+ return maxDepthQueue(root,0)
+}
+
+fun maxDepth2(root: TreeNode?):Int{
+    if(root == null) return  0
+    val l = maxDepth2(root.left)
+    val r = maxDepth2(root.right)
+    return max(l,r) +1
+}
+
+fun maxDepthQueue(root: TreeNode?,pos:Int): Int {
+    if(root == null) return pos
+    val l = maxDepthQueue(root.left,pos+1)
+    val r = maxDepthQueue(root.right,pos +1)
+    return max(l,r)
+}
+
 
 fun main() {
     var tree1 = TreeNode(1)
@@ -289,5 +313,5 @@ fun main() {
     tree2.left = tree4
 //    tree2.left = tree4
 
-    println(sumNumbers(tree1))
+    println(maxDepth2(tree1))
 }
