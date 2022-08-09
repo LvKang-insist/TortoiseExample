@@ -279,10 +279,33 @@ fun fibTwo(n: Int): Int {
 
 /**
  * 题：顺时针打印矩阵
- * 解：
+ * 解：对矩阵进行转圈遍历，使用四个变量来控制每个方向的位置，如果大于对应的边，说明已经结束
+ *     时间复杂度：只遍历一次，所以是 0(mn)
+ *     空间复杂度，没有额外的开销，0(1)
  * */
 fun spiralOrder(matrix: Array<IntArray>): IntArray {
-    return intArrayOf()
+    if (matrix.isEmpty()) return intArrayOf()
+    var l = 0
+    var r = matrix[0].size - 1
+    var t = 0
+    var b = matrix.size - 1
+    val res = IntArray((r + 1) * (b + 1))
+    var resIndex = 0
+    while (true) {
+        //左到右
+        for (i in l..r) res[resIndex++] = matrix[t][i]
+        if (++t > b) break
+        //上到下
+        for (i in t..b) res[resIndex++] = matrix[i][r]
+        if (--r < l) break
+        //右到左
+        for (i in r downTo l) res[resIndex++] = matrix[b][i]
+        if (--b < t) break
+        //下到上
+        for (i in b downTo t) res[resIndex++] = matrix[i][l]
+        if (++l > r) break
+    }
+    return res
 }
 
 fun main() {
