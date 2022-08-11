@@ -1,3 +1,5 @@
+import java.util.*
+
 /**
  * @name Solution
  * @package
@@ -308,6 +310,27 @@ fun spiralOrder(matrix: Array<IntArray>): IntArray {
     return res
 }
 
-fun main() {
+/**
+ * 题：栈的压入，和弹出，给定两个序列，第一个是栈压入顺序，第二个是推出序列，判断第二个是否为第一个的推出序列
+ *
+ * 解：使用栈来模拟压入和弹出操作。使用栈将 pushed 按顺序压入栈中，
+ *    压入时判断是否和 popped 的首位相同，如果相同将元素pop，指针移向下一位，
+ *    不相同，则继续压入，
+ *    最后栈如果为空，说明弹出序列没有问题
+ * */
+fun validateStackSequences(pushed: IntArray, popped: IntArray): Boolean {
+    val stack = Stack<Int>()
+    var p = 0
+    for (element in pushed){
+        stack.push(element)
+        while (stack.isNotEmpty() && stack.peek() == popped[p]){
+            stack.pop()
+            p++
+        }
+    }
+    return stack.isEmpty()
+}
 
+fun main() {
+    println("--------")
 }
