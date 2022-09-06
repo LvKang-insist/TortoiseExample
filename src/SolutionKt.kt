@@ -321,14 +321,62 @@ fun spiralOrder(matrix: Array<IntArray>): IntArray {
 fun validateStackSequences(pushed: IntArray, popped: IntArray): Boolean {
     val stack = Stack<Int>()
     var p = 0
-    for (element in pushed) {
+    for (element in pushed){
         stack.push(element)
-        while (stack.isNotEmpty() && stack.peek() == popped[p]) {
+        while (stack.isNotEmpty() && stack.peek() == popped[p]){
             stack.pop()
             p++
         }
     }
     return stack.isEmpty()
+}
+
+
+/**
+ * 题：调整数组顺序使得奇数再前，偶数在后
+ * 解：定义 l,r，从左右两边开始遍历
+ *    停止条件：l 位置不是奇数，r 的位置不是偶数，最后交换
+ *
+ *    时间复杂度，由于 l < r，l，r 共同遍历数组，所以 0(n)
+ *    没有额外的开销 O(1)
+ * */
+fun exchange(nums: IntArray): IntArray {
+    var l = 0
+    var r = nums.size - 1
+    while (l < r) {
+        while (l < r && nums[l] % 2 != 0) l++
+        while (r > l && nums[r] % 2 == 0) r--
+        val temp = nums[l]
+        nums[l] = nums[r]
+        nums[r] = temp
+    }
+    return nums
+}
+
+/**
+ * 题：链表中倒数第 k 哥结点
+ * 解：快慢指针，快指针先走 k，然后两个指针同步走，走完之后，慢指针位置就是结果
+ *    例如长度 10，k 等于 3。
+ *    快指针走到 3，然后再一起走，慢指针最后的位置就是 7
+ *
+ *    时间复杂度：O(n)
+ *    空间复杂度：O(1)
+ *
+ * */
+fun getKthFromEnd(head: ListNode?, k: Int): ListNode? {
+    var first = head
+    var node = head
+    var i = k
+
+    while (first != null) {
+        first = first.next
+        if (i == 0) {
+            node = node?.next
+        } else {
+            i--
+        }
+    }
+    return node
 }
 
 
