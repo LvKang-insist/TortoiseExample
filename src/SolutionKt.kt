@@ -379,9 +379,70 @@ fun getKthFromEnd(head: ListNode?, k: Int): ListNode? {
     return node
 }
 
+
+
+fun findMedianSortedArrays(nums1: IntArray, nums2: IntArray): Double {
+
+    val s1Size = nums1.size
+    val s2Size = nums2.size
+    val totalSize = s1Size + s2Size
+    val newArray = IntArray(totalSize)
+
+    var s1Index = 0
+    var newIndex = 0
+    for (i in 0 until s2Size) {
+        val s2 = nums2[i]
+        while (s1Index < totalSize) {
+            val s1 = nums1[s1Index]
+            if (s2 > s1) {
+                newArray[newIndex] = s1
+                s1Index++
+                newIndex++
+            } else {
+                newArray[newIndex] = s2
+                newIndex++
+                break
+            }
+        }
+    }
+
+    if (newIndex < totalSize) {
+        for (i in newIndex until totalSize) {
+            newArray[i] = nums1[s1Index++]
+        }
+    }
+
+    val cur = totalSize / 2
+    return if (totalSize % 2 == 0) {
+        (newArray[cur].toDouble() + newArray[cur + 1].toDouble()) / 2
+    } else {
+        newArray[cur].toDouble()
+    }
+}
+
+
+fun findSart(str: Array<String>) {
+
+    var length = str[0].length
+    str.forEach {
+        if (it.length < length) {
+            length = it.length
+        }
+    }
+
+
+    for (i in 0 until length) {
+
+    }
+
+}
+
+
 fun main() {
 
 
+//    val result = findMedianSortedArrays(intArrayOf(1, 2), intArrayOf(3, 4))
+//    println(result)
 //    var l1 = ListNode(0)
 //    var l2 = ListNode(1)
 //    var l3 = ListNode(2)

@@ -85,4 +85,13 @@ public class Solution {
             right = _right;
         }
     }
+
+
+    interface Test {
+        void test();
+    }
+
+    public static void main(String[] args) {
+
+    }
 }
