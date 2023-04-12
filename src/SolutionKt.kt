@@ -380,6 +380,39 @@ fun getKthFromEnd(head: ListNode?, k: Int): ListNode? {
 }
 
 
+fun exist(board: Array<CharArray>, word: String): Boolean {
+    val h = board.size
+    val w = board[0].size
+
+    val visited = Array<BooleanArray>(h, init = { BooleanArray(w) })
+
+    for (i in 0 until h) {
+        for (j in 0 until w) {
+
+        }
+    }
+
+
+    return false
+}
+
+fun checkExist(
+    board: Array<CharArray>, visited: Array<BooleanArray>,
+    i: Int, j: Int, s: String, k: Int
+): Boolean {
+    if (board[i][j] != s[k]) {
+        return false;
+    } else if (k == s.length - 1) {
+        return true
+    }
+
+    visited[i][j] = true;
+
+
+}
+
+
+
 
 fun findMedianSortedArrays(nums1: IntArray, nums2: IntArray): Double {
 
