@@ -408,7 +408,7 @@ fun checkExist(
 
     visited[i][j] = true;
 
-
+return true
 }
 
 
@@ -469,10 +469,43 @@ fun findSart(str: Array<String>) {
     }
 
 }
+//括号子串，括号子串的结尾一定是')'，根据右括号为右端点去寻找合法的最长子串对应的左括号
+//每一个 ( 直接入栈
+//每个 ) 直接弹出栈顶元素表示匹配了当前右括号
+//   如果栈为空，说明右括号不能被匹配，则更新边界
+///  如果不为空，当前右括号下标-栈顶元素为有效括号的长度
+fun longestValidParentheses(s: String): Int {
+    val stack = ArrayDeque<Int>()
+    stack.push(-1)
+    var maxLen = 0
+    for (i in s.indices) {
+        //左括号直接入栈
+        if (s[i] == '(') {
+            stack.push(i)
+        } else {
+            //如果是右括号，存在两种情况
+            //1，前面有左括号和他匹配，这样就匹配成功一对
+            //2，如果前面没有和他可以匹配的，那这个右括号就成了边界，新的括号匹配时，起点必须在该边界右边
+
+            //大小为 1，说明只存放了边界，右括号无法进行匹配，将右括号设置为新的边界(参照物)，
+            if (stack.size == 1) {
+                stack.pop()
+                stack.push(i)
+            } else {
+                //不等于 1 表示前面又可以匹配的左括号，则直接弹出左括号
+                ///右括号 - 栈顶元素就是有效长度了
+                stack.pop()
+                maxLen = Math.max(maxLen, i - stack.peek())
+            }
+        }
+    }
+    return maxLen
+}
 
 
 fun main() {
 
+    println(longestValidParentheses("())((())"))
 
 //    val result = findMedianSortedArrays(intArrayOf(1, 2), intArrayOf(3, 4))
 //    println(result)
